@@ -1,12 +1,11 @@
 import {
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import Category from './Category';
 
@@ -21,7 +20,10 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column()
+  @Column({
+    type: 'numeric',
+    scale: 2,
+  })
   value: number;
 
   @Column()
@@ -32,8 +34,11 @@ class Transaction {
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @OneToOne(() => Category)
+  //@ManyToMany(type => Question, question => question.categories)
+  //questions: Question[];
+  @ManyToOne(() => Category, {
+    eager: true,
+  })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 }
