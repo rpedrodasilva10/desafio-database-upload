@@ -34,8 +34,7 @@ class Transaction {
 
   @UpdateDateColumn()
   updated_at: Date;
-  //@ManyToMany(type => Question, question => question.categories)
-  //questions: Question[];
+
   @ManyToOne(() => Category, {
     eager: true,
   })

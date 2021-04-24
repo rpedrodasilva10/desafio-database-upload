@@ -19,6 +19,12 @@ class CreateTransactionService {
       throw new AppError(`Invalid transaction type: '${type}'`, 400);
     }
 
+    if (type === 'outcome') {
+      const balance = await transactionsRepository.getBalance();
+
+      if (balance.total - value < 0) throw new AppError(`Not enough balance to perform this operation`, 400);
+    }
+
     let categoryInstance = await categoriesRepository.findOne({
       where: {
         title: category,

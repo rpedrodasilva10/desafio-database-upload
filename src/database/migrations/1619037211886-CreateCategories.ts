@@ -17,6 +17,7 @@ export class CreateCategories1619037211886 implements MigrationInterface {
           {
             name: 'title',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'created_at',
@@ -30,7 +31,6 @@ export class CreateCategories1619037211886 implements MigrationInterface {
           },
         ],
       }),
-      true,
     );
   }
 
